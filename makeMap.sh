@@ -4,6 +4,9 @@
 USER=VasaM
 PASS=Password123
 
+# Dalsi nastevni
+PYTHON=python3.4
+
 
 # Ukoncovaci funkce
 function end {
@@ -292,8 +295,7 @@ if [ $GARMIN = true ]; then
 	fi
 
 	# Stahnu HGT soubory
-	# FIXME
-	python3.4 ./hgt/hgt-downloader.py ./hgt/SRTM3v3.0 ./hgt
+	PYTHON ./hgt/hgt-downloader.py ./hgt/SRTM3v3.0 ./hgt
 
 	INPUT_FILE=./pbf/${STATE}.osm.pbf
 	INPUT_SRTM_FILE=./pbf/${STATE}-SRTM.osm.pbf
