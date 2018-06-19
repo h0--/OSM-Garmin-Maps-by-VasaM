@@ -5,8 +5,8 @@ USER=VasaM
 PASS=Password123
 
 # Dalsi nastevni
-PYTHON=python3.4
-
+PYTHON=python3
+MEM=`free -m | awk  '/Mem:/{print $2}'`
 
 # Ukoncovaci funkce
 function end {
@@ -274,19 +274,19 @@ INPUT_SRTM_FILE=./pbf/${STATE}-SRTM.osm.pbf
 
 if [ $SPLIT != false ]; then
 	if [ ! -d ./pbf/${STATE}-SPLITTED/ ]; then
-		java -Xmx4000m -jar ./splitter/splitter.jar $INPUT_FILE --output-dir=./pbf/${STATE}-SPLITTED/
+		java -Xmx${MEM}m -jar ./splitter/splitter.jar $INPUT_FILE --output-dir=./pbf/${STATE}-SPLITTED/
 	fi
 	INPUT_FILE=./pbf/${STATE}-SPLITTED/*.osm.pbf
 
 	if [ ! -d ./pbf/${STATE}-SPLITTED-SRTM/ ]; then
-		java -Xmx4000m -jar ./splitter/splitter.jar $INPUT_SRTM_FILE --output-dir=./pbf/${STATE}-SPLITTED-SRTM/
+		java -Xmx${MEM}m -jar ./splitter/splitter.jar $INPUT_SRTM_FILE --output-dir=./pbf/${STATE}-SPLITTED-SRTM/
 	fi
 	INPUT_SRTM_FILE=./pbf/${STATE}-SPLITTED-SRTM/*.osm.pbf
 fi
 
 
 # Spustim generator
-java -Xmx8000m -jar ./mkgmap/mkgmap.jar \
+java -Xmx${MEM}m -jar ./mkgmap/mkgmap.jar \
      -c ./mkgmap-settings.conf \
      --mapname="${COUNTRY_ID}0001" \
      --overview-mapnumber="${COUNTRY_ID}0000" \
